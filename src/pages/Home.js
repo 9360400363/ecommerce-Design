@@ -1,7 +1,16 @@
 import React from "react";
+import Cards from "../components/cards";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <div className="flex my-12">
+        {" "}
+        <Cards />
+        <Cards />
+      </div>
+    </div>
+  );
 }
 
 export default Home;

@@ -11,6 +11,10 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import { Counter } from "./pages/counter";
+import { ThemeProvider } from "@material-tailwind/react";
+import Order from "./pages/Order";
+import Cart from "./pages/Cart";
+import Product from "./pages/product";
 
 const appRouter = createBrowserRouter([
   {
@@ -18,20 +22,26 @@ const appRouter = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/home", element: <Home /> },
-      { path: "/", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
       {
         path: "/counter",
         element: <Counter />,
       },
+      { path: "/cart", element: <Cart /> },
+      { path: "/order", element: <Order /> },
+      { path: "/product-detail/:id", element: <Product /> },
     ],
   },
+
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Signup /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <RouterProvider router={appRouter} />
+    <ThemeProvider>
+      <RouterProvider router={appRouter} />
+    </ThemeProvider>
   </Provider>
 );
 
