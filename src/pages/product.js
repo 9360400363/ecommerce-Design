@@ -11,11 +11,11 @@ function Product() {
       {" "}
       <div className="flex flex-wrap">
         <img
-          className=" max-h-80 max-w-60 rounded-lg shadow-xl shadow-blue-gray-900/50 "
+          className=" max-h-80 max-w-64 rounded-lg shadow-xl shadow-blue-gray-900/50 "
           src="https://m.media-amazon.com/images/I/61cwywLZR-L._SX679_.jpg"
           alt="nature image"
         />{" "}
-        <ul className="p-5">
+        <ul className="p-5 ml">
           <li className=" text-2xl"> PRODUCT NAME</li>
           <li className=" text-xl"> OFFER</li>
           <li className=" text-xl">DESCRIPTIONS</li>
