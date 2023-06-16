@@ -1,12 +1,38 @@
-import React, { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { login } from "../services/auth";
+
+import { useSelector, useDispatch } from "react-redux";
+import { setToken, setUserDetails } from "../store/reducer/auth.slice";
 
 const Login = () => {
-  const { loginData, setLoginData } = useState({});
+  const { token, userDetails } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  const [loginData, setLoginData] = useState({});
   const handleChange = ({ target: { value, name } }) => {
     setLoginData({ ...loginData, [name]: value });
+    // console.log("e", e);
+  };
+  const handleClick = () => {
+    console.log(loginData);
+    login(loginData)
+      .then((res) => {
+        console.log("res", res);
+        if (res.status === 200) {
+          dispatch(setToken({ token: res.data.accesstoken }));
+          const { username, email, isAdmin } = res.data.user;
+          dispatch(
+            setUserDetails({ userDetails: { username, email, isAdmin } })
+          );
+          toast.success("Login succesfully");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("something went wrong!");
+      });
   };
 
   return (
@@ -23,14 +49,14 @@ const Login = () => {
                 size="lg"
                 label="Email"
                 name="email"
-                onChange={handlechange}
+                onChange={handleChange}
               />
               <Input
                 type="password"
                 size="lg"
                 label="Password"
                 name="password"
-                onChange={handlechange}
+                onChange={handleChange}
               />
             </div>
 

@@ -14,7 +14,6 @@ const Signup = () => {
   const handleClick = () => {
     register(signupData)
       .then((res) => {
-        console.log("res", res);
         if (res.status === 201) {
           toast.success("Login to your account!");
           navigate("/login");
