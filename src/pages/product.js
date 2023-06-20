@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../store/reducer/counterSlice";
 import { Button, ButtonGroup } from "@material-tailwind/react";
+import { productDataId } from "../services/products";
+import { useParams } from "react-router-dom";
+import { setProductsDetails } from "../store/reducer/productSlice";
 
 function Product() {
-  const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  const { productsDetails } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    productDataId(id).then((res) => {
+      console.log("res.data", res.data);
+      dispatch(setProductsDetails({ productList: res.data }));
+    });
+  }, []);
+
   return (
     <div>
-      {" "}
       <div className="flex flex-wrap">
         <img
           className=" max-h-80 max-w-64 rounded-lg shadow-xl shadow-blue-gray-900/50 "
-          src="https://m.media-amazon.com/images/I/61cwywLZR-L._SX679_.jpg"
+          src={productsDetails.img}
           alt="nature image"
         />{" "}
         <ul className="p-5 ml">
-          <li className=" text-2xl"> PRODUCT NAME</li>
-          <li className=" text-xl"> OFFER</li>
-          <li className=" text-xl">DESCRIPTIONS</li>
-          <li className=" text-xl">PRIZE</li>
+          <li className=" text-2xl"> {productsDetails.title}</li>
+          <li className=" text-xl"> {productsDetails.desc}</li>
+          <li className=" text-xl">{productsDetails.size}</li>
+          <li className=" text-xl"> prize:{productsDetails.price}</li>
         </ul>
       </div>
-      <div className="p-2 m-2 ">
-        <ButtonGroup size="sm">
-          <Button onClick={() => dispatch(increment())}>+</Button>
-          <p className="p-2">{count}</p>
-
-          <Button onClick={() => dispatch(decrement())}>-</Button>
-        </ButtonGroup>
-      </div>
+      <div className="p-2 m-2 "></div>
     </div>
   );
 }

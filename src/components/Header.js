@@ -7,8 +7,8 @@ const Header = () => {
       <nav className="grid grid-cols-3 gap-2 sm:justify-center  p-2 my-2 ">
         <div>
           <img
-            className="h-20 w-20 "
-            src="https://colorlib.com/wp/wp-content/uploads/sites/2/ecommerce-website-examples.jpg"
+            className=" h-20 w-20  "
+            src="https://st4.depositphotos.com/16499398/21250/v/450/depositphotos_212502008-stock-illustration-e-commerce-shopping-cart-tool.jpg"
             alt="nature image"
           />
         </div>

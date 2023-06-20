@@ -5,44 +5,30 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/index";
 import { Provider } from "react-redux";
-import { createBrowserRouter } from "react-router-dom";
+
 import { RouterProvider } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import { Counter } from "./pages/counter";
+
 import { ThemeProvider } from "@material-tailwind/react";
-import Order from "./pages/Order";
-import Cart from "./pages/Cart";
-import Product from "./pages/product";
 
-const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "/home", element: <Home /> },
-      {
-        path: "/counter",
-        element: <Counter />,
-      },
-      { path: "/cart", element: <Cart /> },
-      { path: "/order", element: <Order /> },
-      { path: "/product-detail/:id", element: <Product /> },
-    ],
-  },
+import Routing from "./protectedRouter";
 
-  { path: "/login", element: <Login /> },
-  { path: "/signup", element: <Signup /> },
-]);
+const RouterProviederApp = () => {
+  return (
+    <RouterProvider router={Routing()}>
+      <App />
+    </RouterProvider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <ThemeProvider>
-      <RouterProvider router={appRouter} />
-    </ThemeProvider>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider>
+        <RouterProviederApp />
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,32 +1,35 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { login } from "../services/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setToken, setUserDetails } from "../store/reducer/auth.slice";
+import { setToken, setUserDetails } from "../store/reducer/authSlice";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const notify = () => toast("login succesfully");
+
   const { token, userDetails } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [logindata, setLogindata] = useState({});
 
-  const [loginData, setLoginData] = useState({});
   const handleChange = ({ target: { value, name } }) => {
-    setLoginData({ ...loginData, [name]: value });
-    // console.log("e", e);
+    setLogindata({ ...logindata, [name]: value });
   };
+
   const handleClick = () => {
-    console.log(loginData);
-    login(loginData)
+    login(logindata)
       .then((res) => {
-        console.log("res", res);
+        console.log(res);
         if (res.status === 200) {
           dispatch(setToken({ token: res.data.accesstoken }));
           const { username, email, isAdmin } = res.data.user;
           dispatch(
             setUserDetails({ userDetails: { username, email, isAdmin } })
           );
-          toast.success("Login succesfully");
+          notify();
         }
       })
       .catch((error) => {
@@ -47,8 +50,8 @@ const Login = () => {
             <div className="mb-4 flex flex-col gap-6">
               <Input
                 size="lg"
-                label="Email"
-                name="email"
+                label="username"
+                name="username"
                 onChange={handleChange}
               />
               <Input
@@ -59,19 +62,22 @@ const Login = () => {
                 onChange={handleChange}
               />
             </div>
-
+            {/* <Link to={"/home"}> */}
             <Button className="mt-6" fullWidth onClick={handleClick}>
               Login
             </Button>
+            {/* </Link> */}
 
             <Typography color="gray" className="mt-4 text-center font-normal">
               Don't You have an account ?{" "}
-              <a
-                href="#"
-                className="font-medium text-blue-500 transition-colors hover:text-blue-700"
-              >
-                Signup
-              </a>
+              <Link to={"/signup"}>
+                <a
+                  href="#"
+                  className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+                >
+                  Signup
+                </a>
+              </Link>
             </Typography>
           </form>
         </Card>
