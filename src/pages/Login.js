@@ -6,13 +6,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setToken, setUserDetails } from "../store/reducer/authSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const notify = () => toast("login succesfully");
 
-  const { token, userDetails } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   const [logindata, setLogindata] = useState({});
 
   const handleChange = ({ target: { value, name } }) => {
@@ -25,9 +25,11 @@ const Login = () => {
         console.log(res);
         if (res.status === 200) {
           dispatch(setToken({ token: res.data.accesstoken }));
-          const { username, email, isAdmin } = res.data.user;
+          const { username, email, isAdmin, _id } = res.data.user;
           dispatch(
-            setUserDetails({ userDetails: { username, email, isAdmin } })
+            setUserDetails({
+              userDetails: { username, email, isAdmin, id: _id },
+            })
           );
           notify();
         }
@@ -62,15 +64,14 @@ const Login = () => {
                 onChange={handleChange}
               />
             </div>
-            {/* <Link to={"/home"}> */}
+
             <Button className="mt-6" fullWidth onClick={handleClick}>
               Login
             </Button>
-            {/* </Link> */}
 
             <Typography color="gray" className="mt-4 text-center font-normal">
               Don't You have an account ?{" "}
-              <Link to={"/signup"}>
+              <Link to={"signup"}>
                 <a
                   href="#"
                   className="font-medium text-blue-500 transition-colors hover:text-blue-700"

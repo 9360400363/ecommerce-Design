@@ -11,7 +11,6 @@ export const productSlice = createSlice({
       state.products = payload.products;
     },
     setProductsDetails: (state, { payload }) => {
-      console.log("payload", payload);
       state.productsDetails = payload.productList;
     },
   },

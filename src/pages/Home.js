@@ -16,7 +16,6 @@ function Home() {
     });
   }, []);
   const detailPage = (item) => {
-    console.log("item", item);
     navigate(`/productDetail/${item._id}`);
   };
 

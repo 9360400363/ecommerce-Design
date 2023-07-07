@@ -10,8 +10,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Cards = ({ ProductList, detailPage }) => {
-  const navigate = useNavigate();
-
   return (
     <div>
       <div>

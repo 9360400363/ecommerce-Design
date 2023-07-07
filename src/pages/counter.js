@@ -14,14 +14,14 @@ export function Counter() {
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
-          Increment
+          add
         </button>
         <span>{count}</span>
         <button
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
-          Decrement
+          less
         </button>
       </div>
     </div>

@@ -1,11 +1,9 @@
 import React from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
-import { register } from "../services/auth";
+import {  register } from "../services/auth";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "./Login";
-import Home from "./Home";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,7 +16,8 @@ const Signup = () => {
       .then((res) => {
         if (res.status === 201) {
           toast.success("Login to your account!");
-          navigate("/login");
+          navigate("/")
+          
         }
       })
       .catch((error) => {
@@ -65,14 +64,13 @@ const Signup = () => {
             </Button>{" "}
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{" "}
-              <Link to={"/login"}>
-                <a
-                  href="#"
-                  className="font-medium text-blue-500 transition-colors hover:text-blue-700"
-                >
-                  Sign In
-                </a>
-              </Link>
+              <Link to={"/"}><a
+                
+                href="#"
+                className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+              >
+                Sign In
+              </a></Link>
             </Typography>
           </form>
         </Card>

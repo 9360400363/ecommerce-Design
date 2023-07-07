@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import { Counter } from "./pages/counter";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
-import Product from "./pages/product";
+import Product from "../src/pages/productDetails";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
@@ -14,7 +14,7 @@ const mainRouter = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { path: "home", element: <Home /> },
+      { path: "", element: <Home /> },
       {
         path: "counter",
         element: <Counter />,
@@ -41,7 +41,7 @@ const authRouter = createBrowserRouter([
 ]);
 
 const Routing = () => {
-  const { token, userDetails } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   if (!token) {
     return authRouter;
   } else {
